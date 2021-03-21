@@ -1,0 +1,28 @@
+= Dokumentationen diverser Konfigurationen                              
+Sven Butzek 
+Version 0.1, 21.03.2021                                             
+:sectnums:                                                          
+:toc:                                                               
+:toclevels: 4                                                       
+:toc-title: My Content                                              
+                                                                    
+:description: Linux commands                             
+:keywords: wordpress                                                 
+:imagesdir: ./img                                                   
+
+This is my own documentation site
+
+== Wordpress Datenbank
+
+Datenbank liegt in /config ab, dieses Verezeichnig ist nach db_data gemounted.
+Der Ordner db_restore für das zurücksichern eines SQL Dumps gedacht:
+
+Um die Datenbank zu restaurieren genügt folgender Befehl:
+'mysql -u <user> -p <dbname> < /config/initdb.d/wordpress.sql'
+
+
+
+
+== Second section
+
+More test
