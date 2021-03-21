@@ -17,7 +17,7 @@ This is my own documentation site
 Datenbank liegt in /config ab, dieses Verezeichnig ist nach db_data gemounted.
 Der Ordner db_restore für das zurücksichern eines SQL Dumps gedacht:
 
-Um die Datenbank zu restaurieren genügt folgender Befehl:
+Um die Datenbank zu restaurieren genügt folgender Befehl: +
 `mysql -u <user> -p <dbname> < /config/initdb.d/wordpress.sql`
 
 
