@@ -1,6 +1,6 @@
 = Dokumentationen diverser Konfigurationen                              
 Sven Butzek 
-Version 0.1, 21.03.2021                                             
+Version 0.2, 16.05.2021                                             
 :sectnums:                                                          
 :toc:                                                               
 :toclevels: 4                                                       
@@ -42,7 +42,7 @@ define('WP_DEBUG_DISPLAY', false);
 === Ecodms Backup
 Im Backup Verzeichnis reicht es eine create Datei anzulegen. Dies wird von ecodms erkannt und anschließend ein Backup erstellt.
 siehe script "/etc/cron.weekly/ecodmsbackup"
-[source,bash]
+[source,shell]
 ----
 #!/bin/bash
 
@@ -84,6 +84,32 @@ done
 mv -T "$FILENAME" /mnt/fritznas/ASMedia-asm1153e-01/backup/ecodms/backup.zip
 ----
 
-== Linux VG
+== Linux LVM
+
+=== Informationen zu den Volumes abrufen
+[source,shell]
+----
+sudo lvdisplay
+----
 
 === Logisches Volume vergrößern
+
+==== Backup Volume vergrößern
+[source,shell]
+----
+sudo lvextend --resizefs -L +10G /dev/data-vg/backup-lv # Größe um 10G erweitern
+----
+
+.Führt zu folgender Ausgabe
+[%collapsible]
+====
+[source,shell]
+----
+Size of logical volume data-vg/backup-lv changed from 600.00 GiB (153600 extents) to 610.00 GiB (156160 extents).
+Logical volume data-vg/backup-lv successfully resized.
+resize2fs 1.45.5 (07-Jan-2020)
+Filesystem at /dev/mapper/data--vg-backup--lv is mounted on /srv/backup; on-line resizing required
+old_desc_blocks = 75, new_desc_blocks = 77
+The filesystem on /dev/mapper/data--vg-backup--lv is now 159907840 (4k) blocks long.
+----
+====
