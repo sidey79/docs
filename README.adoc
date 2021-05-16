@@ -35,7 +35,9 @@ define('WP_DEBUG_DISPLAY', false);
 ```
 
 
-=== Ecodms Debugging
+== Ecodms 
+
+=== Ecodms Backup
 Im Backup Verzeichnis reicht es eine create Datei anzulegen. Dies wird von ecodms erkannt und anschließend ein Backup erstellt.
 siehe script "/etc/cron.weekly/ecodmsbackup"
 ```
@@ -43,12 +45,13 @@ siehe script "/etc/cron.weekly/ecodmsbackup"
 
 # This file will trigger ecodms to create a new backup
 #touch /opt/docker/ecodms/ecoDMS/backup/create
+BACKUP_PATH=/srv/backup/zeus/ecodms
+
 touch ${BACKUP_PATH}/create
 
-BACKUP_PATH=/srv/backup/zeus/ecodms
 MAX_RUNTIME=$((SECONDS+3600))
 
-while [ -f /opt/docker/ecodms/ecoDMS/backup/create ]
+while [ -f ${BACKUP_PATH}/create ]
 do
       sleep 31
       if [ $SECONDS -gt $MAX_RUNTIME ]; then
@@ -76,5 +79,10 @@ done
 
 #cp "$FILENAME" /mnt/fritznas/ASMedia-asm1153e-01/backup/ecodms/backup.zip
 mv -T "$FILENAME" /mnt/fritznas/ASMedia-asm1153e-01/backup/ecodms/backup.zip
+
 ```
 
+
+== Linux VG
+
+=== Logisches Volume vergrößern
