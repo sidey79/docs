@@ -41,14 +41,20 @@ define('WP_DEBUG_DISPLAY', false);
 
 === Ecodms Backup
 Im Backup Verzeichnis reicht es eine create Datei anzulegen. Dies wird von ecodms erkannt und anschließend ein Backup erstellt.
-siehe script "/etc/cron.weekly/ecodmsbackup"
+siehe script "/opt/docker/duplicati/bin/ecodmsbackup"
+
+Duplicati startet vor dem Backup das script und wartet auf einen exitcode 0
+
+.ecodms Backup script
+[%collapsible]
+====
 [source,shell]
 ----
 #!/bin/bash
 
 # This file will trigger ecodms to create a new backup
 #touch /opt/docker/ecodms/ecoDMS/backup/create
-BACKUP_PATH=/srv/backup/zeus/ecodms
+BACKUP_PATH=/source/ecodms
 
 touch ${BACKUP_PATH}/create
 
@@ -62,7 +68,7 @@ do
       fi
 done
 
-echo "Backup seems to be started."
+echo "Backup seems to be started. create file is deleted"
 
 while : ; do
   FILENAME=`ls -rt ${BACKUP_PATH}/*.zip | tail -n1`
@@ -81,8 +87,14 @@ while : ; do
 done
 
 #cp "$FILENAME" /mnt/fritznas/ASMedia-asm1153e-01/backup/ecodms/backup.zip
-mv -T "$FILENAME" /mnt/fritznas/ASMedia-asm1153e-01/backup/ecodms/backup.zip
+#mv -T "$FILENAME" /mnt/fritznas/ASMedia-asm1153e-01/backup/ecodms/backup.zip
+
+# keep three youngest files and delete rest of them
+ls -1tr ${BACKUP_PATH} | head -n -3 | xargs -d '\n'  rm -f --
+
+exit 0
 ----
+====
 
 == Linux LVM
 
