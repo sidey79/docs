@@ -27,12 +27,14 @@ Um die Datenbank zu restaurieren genügt folgender Befehl: +
 === Wordpress Debugging
 
 in wp-config.php folgendes hinterlegen
-```
+[source,php]
+----
 define('WP_DEBUG', true);
 define('WP_DEBUG_LOG', true);
 define('WP_DEBUG_DISPLAY', false);
 @ini_set('display_errors',0);
-```
+----
+
 
 
 == Ecodms 
@@ -40,7 +42,8 @@ define('WP_DEBUG_DISPLAY', false);
 === Ecodms Backup
 Im Backup Verzeichnis reicht es eine create Datei anzulegen. Dies wird von ecodms erkannt und anschließend ein Backup erstellt.
 siehe script "/etc/cron.weekly/ecodmsbackup"
-```
+[source,bash]
+----
 #!/bin/bash
 
 # This file will trigger ecodms to create a new backup
@@ -79,9 +82,7 @@ done
 
 #cp "$FILENAME" /mnt/fritznas/ASMedia-asm1153e-01/backup/ecodms/backup.zip
 mv -T "$FILENAME" /mnt/fritznas/ASMedia-asm1153e-01/backup/ecodms/backup.zip
-
-```
-
+----
 
 == Linux VG
 
